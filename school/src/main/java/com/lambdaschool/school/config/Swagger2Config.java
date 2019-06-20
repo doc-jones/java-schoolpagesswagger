@@ -11,6 +11,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.awt.print.Pageable;
+
 // http://localhost:2019/swagger-ui.html
 
 @Configuration
@@ -24,7 +26,10 @@ public class Swagger2Config
                 .apis(RequestHandlerSelectors
                         .basePackage("com.lambdaschool.school"))
                 .paths(PathSelectors.regex("/.*"))
-                .build().apiInfo(apiEndPointsInfo());
+                .build()
+                .useDefaultResponseMessages(false) // Allows only my exception responses
+                .ignoredParameterTypes(Pageable.class) // Allows only my paging parameter list
+                .apiInfo(apiEndPointsInfo());
     }
 
     private ApiInfo apiEndPointsInfo()

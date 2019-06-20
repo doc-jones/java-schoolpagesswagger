@@ -54,7 +54,7 @@ public class StudentController
     })
     @GetMapping(value = "/Student/{StudentId}",
                 produces = {"application/json"})
-    public ResponseEntity<?> getStudentById(
+    public ResponseEntity<?> getStudentById(@ApiParam(value = "Student Id", required = true, example = "1")
             @PathVariable
                     Long StudentId)
     {
@@ -75,6 +75,11 @@ public class StudentController
         List<Student> myStudents = studentService.findStudentByNameLike(name, pageable);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Creates a new Student", notes = "The newly created student id will be set in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Student Created Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error creating student", response = ErrorDetail.class)})
 
 
     @PostMapping(value = "/Student",
