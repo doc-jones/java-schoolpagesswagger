@@ -30,7 +30,7 @@ public class StudentController
     @ApiOperation(value = "return all Students", response = Student.class, responseContainer = "List")
     @ApiImplicitParams(value = {
                                     @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
-                                        value = "Results page you want to retrieve ()..N"),
+                                        value = "Results page you want to retrieve 0..N"),
                                     @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
                                         value = "Number of records per page."),
                                     @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
