@@ -47,11 +47,11 @@ public class StudentController
     }
 
 
-    @ApiOperation(value = "Retrieves a student associated with the provided studentid", response = Student.class)
+    @ApiOperation(value = "Retrieves a student associated with the provided studid", response = Student.class)
     @ApiResponses(value =  {
             @ApiResponse(code = 201, message = "Student Found", response = Student.class),
-            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
-    })
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)})
+
     @GetMapping(value = "/Student/{StudentId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentById(@ApiParam(value = "Student Id", required = true, example = "1")
@@ -62,6 +62,10 @@ public class StudentController
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retrieves a student associated with the provided subset of name chars", response = Student.class)
+    @ApiResponses(value =  {
+            @ApiResponse(code = 201, message = "Student Found", response = Student.class),
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)})
 
     @GetMapping(value = "/student/namelike/{name}",
                 produces = {"application/json"})
@@ -81,7 +85,6 @@ public class StudentController
             @ApiResponse(code = 201, message = "Student Created Successfully", response = void.class),
             @ApiResponse(code = 500, message = "Error creating student", response = ErrorDetail.class)})
 
-
     @PostMapping(value = "/Student",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -99,6 +102,10 @@ public class StudentController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Updates a student", notes = "The updated student id will be set in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Student Updated Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error updating student", response = ErrorDetail.class)})
 
     @PutMapping(value = "/Student/{Studentid}")
     public ResponseEntity<?> updateStudent(
@@ -111,6 +118,10 @@ public class StudentController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Deletes a student", notes = "The deleted student id will be set in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Student Deleted Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error deleting student", response = ErrorDetail.class)})
 
     @DeleteMapping("/Student/{Studentid}")
     public ResponseEntity<?> deleteStudentById(
